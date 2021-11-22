@@ -1,0 +1,40 @@
+<!-- --------------
+어려운 방식의 react 사용
+--------------- -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+
+    <!-- 어려운 방식의 react element만들기 -->
+
+    <script>
+        const root = document.querySelector("#root");
+        const span = React.createElement("span", { id: "pbk" }, "hi");
+        // span을 id가 root 인 것 안에 render한다는 뜻
+        ReactDOM.render(span, root);
+
+    </script>
+
+    <!-- 리엑트를 사용하기 전에는
+    html을 만들고 js로 들고와 수정하는 방식이었지만,
+    리엑트에서는 모든 것이 js로 시작해서
+    html이 되는 방식이다
+
+    이것이 react js의 핵심이다 -->
+
+</body>
+
+</html>

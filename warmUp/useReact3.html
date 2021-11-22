@@ -1,0 +1,80 @@
+<!-- --------------
+jsx를 사용
+--------------- -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <!-- 이런 jsx를 useReact2.html 의 방식으로 변환 해줘야 하기 때문에 -->
+    <!-- 바벨을 사용 -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+    
+    
+    <!-- 조금 더 나은 방식의 react element만들기 -->
+    
+    <script type="text/babel">
+        const root = document.querySelector("#root");
+        function Title() {
+            return (
+                <h3 id = "title" onMouseEnter={()=>console.log("mouse enter")}>
+                Hello I'm a title    
+                </h3>
+            );
+        }
+        function Button () {
+            return (
+                <button
+                style = {{backgroundColor:"yellowgreen",
+                }}
+                onClick = {() => console.log("im clicked")}
+                >
+                clickme
+                </button>
+            );
+        }
+
+        // 여러가지 것들을 기억해나가야하기 때문에
+        // createElement대신 jsx를 사용
+        
+
+        
+        // const h3 = React.createElement("h3", {
+        //     onMouseEnter: ()=> console.log("mouse enter"),
+        // }, "hi");
+        // // span을 id가 root 인 것 안에 render한다는 뜻
+        // const btn = React.createElement("button",{
+        //     // 이렇게 두 번째 인자값으로 프로퍼티를 줄 수 있는데
+        //     // 프로퍼티로 이벤트를 받도록 할 수 있다
+        //     style: {
+        //         backgroundColor : "yellowgreen",
+        //     },
+        //     onClick: () => console.log("im clicked"),
+        // },"click me");
+
+        // title과 button을 컨테이너에 넣음
+        const container = (
+            // 컴포넌트 첫 글자는 대문자
+            <div>
+                <Title />
+                <Button />
+            </div>
+        )
+        // const container = React.createElement("div",null,[Title,Button]);
+
+        ReactDOM.render(container, root);
+
+    </script>
+
+</body>
+
+</html>

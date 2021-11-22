@@ -1,0 +1,47 @@
+<!-- --------------
+바닐라 js를 사용했을 때 < react를 사용했을 때
+--------------- -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+
+    <div id="root"></div>
+
+
+    <!-- 조금 더 나은 방식의 react element만들기 -->
+
+    <script>
+        const root = document.querySelector("#root");
+        const h3 = React.createElement("h3", {
+            onMouseEnter: ()=> console.log("mouse enter"),
+        }, "hi");
+        // span을 id가 root 인 것 안에 render한다는 뜻
+        const btn = React.createElement("button",{
+            // 이렇게 두 번째 인자값으로 프로퍼티를 줄 수 있는데
+            // 프로퍼티로 이벤트를 받도록 할 수 있다
+            style: {
+                backgroundColor : "yellowgreen",
+            },
+            onClick: () => console.log("im clicked"),
+        },"click me");
+
+        // span과 btn을 root아래에 모두 render하기 위해 div로 묶어준다
+        const container = React.createElement("div",null,[h3,btn]);
+
+        ReactDOM.render(container, root);
+
+    </script>
+
+</body>
+
+</html>
