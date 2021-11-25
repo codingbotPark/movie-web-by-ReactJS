@@ -1,6 +1,3 @@
-<!-- --------------
-jsx를 사용
---------------- -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,25 +17,22 @@ jsx를 사용
     <div id="root"></div>
     <script type="text/babel">
         const root = document.querySelector("#root");
-        let counter = 0;
-        function countUp() {
-            counter+=1;
-            // 계속 리랜더링 한다
-            render();
-        }
-        function render(){
-            ReactDOM.render(<App />, root);
-        }
-        function App(){
+        function App() {
+            const [counter,setCounter] = React.useState(0);
+            const onClick = () => {
+                setCounter((current) => current + 1)
+            }
+            console.log(counter)
+
             return (
-            <div>
-                <h3>Total clicks: {counter}</h3>
-                <button onClick={countUp}>clickme</button>
-            </div>
-            )
+                <div>
+                    <h3>Total clicks: {counter}</h3>
+                    <button onClick={onClick}>clickme</button>
+                </div>
+            );
         }
 
-        render();
+        ReactDOM.render(<App />, root);
 
     </script>
 
