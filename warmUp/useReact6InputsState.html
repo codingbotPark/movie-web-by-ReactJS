@@ -11,27 +11,29 @@
 <body>
     <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-    <!-- 이런 jsx를 useReact2.html 의 방식으로 변환 해줘야 하기 때문에 -->
-    <!-- 바벨을 사용 -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <div id="root"></div>
     <script type="text/babel">
-        const root = document.querySelector("#root");
         function App() {
-            const [counter,setCounter] = React.useState(0);
-            const onClick = () => {
-                setCounter((current) => current + 1)
+            //useState는 array를 제공, 첫 번째 element가 현재의 값
+            const [minutes, setMinutes] = React.useState()
+            const onChange = (event) => {
+                console.log(event)
             }
-            console.log(counter)
-
             return (
+                // 시간단위를 바꾸는 프로그램
+                // label을 사용해 input과 연결시켜준다
                 <div>
-                    <h3>Total clicks: {counter}</h3>
-                    <button onClick={onClick}>clickme</button>
+                    <h3>super Conventer</h3>
+                    <label htmlFor="minutes">Minutes</label>
+                    <input id="minutes" value={minutes} placeholder="Minutes" type="number" onChange={onChange} />
+                    <label htmlFor="hours">Hours</label>
+                    <input id="hours" placeholder="Hours" type="number" />
                 </div>
             );
         }
 
+        const root = document.querySelector("#root");
         ReactDOM.render(<App />, root);
 
     </script>
