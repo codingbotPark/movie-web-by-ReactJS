@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+        function MinutesToHours() {
+            const [amount, setAmount] = React.useState()
+            const [inverted, setInverted] = React.useState(false);
+            const onChange = (event) => {
+                setAmount(event.target.value)
+            }
+            const reset = () => {
+                setAmount(0);
+            }
+            const onFlip = () => {
+                setInverted((current) => !current);
+                reset();
+            }
+            return (
+                <div>
+                    <label htmlFor="minutes">Minutes</label>
+                    <input id="minutes" value={inverted ? amount * 60 : amount} placeholder="Minutes" type="number" onChange={onChange} disabled={inverted == true} />
+                    <label htmlFor="hours">Hours</label>
+                    <input value={inverted ? amount : amount / 60} id="hours" placeholder="Hours" type="number" onChange={onChange} disabled={inverted === false} />
+                    <button onClick={reset}>reset</button>
+                    <button onClick={onFlip}>{inverted ? "분 -> 시간" : "시간 -> 분"}</button>
+                </div>
+            );
+        }
+
+        function KmToMiles() {
+            const [amount, setAmount] = React.useState()
+            const [inverted, setInverted] = React.useState(false);
+            const onChange = (evnet) => {
+                setAmount(event.target.value)
+            }
+            const reset = () => {
+                setAmount(0);
+            }
+            const onFlip = () => {
+                setInverted((current) => !current);
+                reset();
+            }
+            return (
+                <div>
+                    <label htmlFor="KM">Kilometers</label>
+                    <input type="number" id="KM" placeholder="Kilometers" value={inverted ? amount * (10 / 6) : amount} onChange={onChange} disabled = {inverted === true}/>
+                    <label htmlFor="Mile">Miles</label>
+                    <input type="number" id="Mile" placeholder="Miles" value={inverted ? amount : amount * (6 / 10)} onChange={onChange} disabled = {inverted === false}/>
+                    <button onClick = {reset}>reset</button>
+                    <button onClick = {onFlip}>{inverted ? "마일 -> 킬로" : "킬로 -> 마일"}</button>
+                </div>
+            )
+        }
+
+        // useReact6InputsState.html 파일에 있는 코드들을 App과 MinutesToHours로 바꾸어준다
+        // 이러한 것을 분할 정복 (divide and conquer) 이라 한다
+        function App() {
+            const [index, setIndex] = React.useState("xx")
+            const onSelect = (evnet) => {
+                // console.log(event.target.value)
+                setIndex(event.target.value)
+            }
+            console.log("render w/", index);
+            return (
+                <div>
+                    <h1>Super Conventer</h1>
+                    <select value={index} onChange={onSelect}>
+                        <option value="xx">Select Your Units</option>
+                        <option value="0">Minutes and Hours</option>
+                        <option value="1">Km and Miles</option>
+                    </select>
+                    <hr />
+                    {index == "xx" ? "Please select your units" : null}
+                    {index === "0" ? <MinutesToHours /> : null}
+                    {index === "1" ? <KmToMiles /> : null}
+                </div>
+            )
+        }
+
+        const root = document.querySelector("#root");
+        ReactDOM.render(<App />, root);
+
+    </script>
+
+</body>
+
+</html>

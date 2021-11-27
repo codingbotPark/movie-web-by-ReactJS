@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js">
+    </script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel"> 
+        // function Btn ({text,big}) {
+        //     return <button style = {{
+        //         backgroundColor:"yellowgreen",
+        //         color:"white",
+        //         padding:"10px 20px",
+        //         border: 0,
+        //         borderRadius:10,
+        //         fontSize: big ? 18 : 16,
+        //     }}>{text}</button>
+        // }
+        // function App() {
+        //     // react는 엘리먼트로 이루어져 있고
+        //     // 부모 엘리먼트에서 자식 엘리먼트로 값을 넘길 때 사용한다
+
+        //     // 이런 기능을 사용하는 예로는
+        //     // 만약 버튼을 만들고 버튼안의 내용이 각각 다를 때
+        //     // 버튼 하나하나를 새로 만드는 것이 아닌,
+        //     // 하나의 버튼을 만든 후 text만 변경할 때 사용할 수 있다
+
+        //     // 이런 인자는 하나이고 유일하다
+        //     // 여러개의 인자를 보내어도 하나의 오브젝트로 받게된다
+
+        //     // 이렇게 엘리먼트들을 재사용할 수 있다 
+        //     return (
+        //         <div>
+        //             <Btn text="Save Changes" big = {true}/>
+        //             <Btn text="Continue" big = {false}/>
+        //         </div>
+        //     )
+        // }
+
+        function Btn ({text, changeValue}) {
+            // continue도 다시 로드가 된다
+            // 상태가 변경될 때 app 의 return은 다시 로드가 된다
+
+            // 이 때 memo를 사용해서
+            // prop 이 변경되지 않는 한에서 리랜더될 컴포넌트들을
+            // 정해줄 수 있다
+            console.log(text, "was rendered");
+            return <button 
+            onClick = {changeValue}
+                style = {{
+                backgroundColor:"yellowgreen",
+                color:"white",
+                padding:"10px 20px",
+                border: 0,
+                borderRadius:10,
+            }}>{text}</button>
+        }
+        // 버튼에 memo를 사용
+        const MemorizedBtn = React.memo(Btn);
+
+        function App() {
+            const [value, setValue] = React.useState("Save Changes");
+            const changeValue = () => setValue("Revert Changes");
+            return (
+                // onClick 은 이벤트리스너가 아닌, 인자 이다
+                <div>
+                    <MemorizedBtn text={value} changeValue = {changeValue}/>
+                    <MemorizedBtn text="Continue" />
+                </div>
+            )
+        }
+
+        const root = document.querySelector("#root");
+        ReactDOM.render(<App />, root);
+
+    </script>
+
+</body>
+
+</html>

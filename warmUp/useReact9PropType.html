@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js">
+    </script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+
+    // fontSize는 필수로 지정하지 않았기 때문에 않았을 때의 경우를 처리
+        function Btn({ text, fontSize = 16 }) {
+            return (
+                <button
+                    styel={{
+                        backgroundColor: "yellowgreen",
+                        color: "white",
+                        padding: "10px 20px",
+                        border: 0,
+                        borderRadius: 10,
+                        fontSize,
+                    }}>
+                    {text}
+                </button>
+            )
+        }
+        // Btn 의 인자 타입을 지정
+        // isRequired 로 빠질 수 없도록 하기
+        Btn.propTypes = {
+            text: PropTypes.string.isRequired,
+        };
+
+        function App() {
+            // 사용자가 fontsize 를 수정할 수 있도록
+
+            // 만약 인자를 잘못 넘길 수 있기 때문에
+            // 인자의 타입이 틀렸을 때 알려준다면 실수를 줄일 수 있다
+            return (
+                <div>
+                    <Btn text="save Changes" fontSize={18} />
+                </div>
+            )
+        }
+
+        const root = document.querySelector("#root");
+        ReactDOM.render(<App />, root);
+
+    </script>
+
+</body>
+
+</html>
