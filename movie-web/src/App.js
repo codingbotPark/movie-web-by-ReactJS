@@ -1,30 +1,19 @@
-import {useState} from "react";
+import { useEffect,useState } from "react";
 
-export default function App() {
-  const [toDo,setToDo] = useState("")
-  const [toDos, setToDos] = useState([])
-  const onChange = (event) => setToDo(event.target.value)
-  const onSubmit = (event) => { 
-    event.preventDefault();
-    if (toDo === ""){
-      return;
-    }
-    setToDos((currentArray) => [toDo,...toDos])
-    setToDo("");
-  }
-  console.log(toDos);
-  return ( 
-  <div>
-    <h1>My Todos ({toDos.length})</h1>
-    <form onSubmit={onSubmit}>
-    <input onChange={onChange} value={toDo} type= "text" placeholder="Write your to do..."/>
-    <button>Add To Do</button>
-    </form>
-    <hr />
-    <ul>
-    {toDos.map((item,index) => <li key={index}>{item}</li>)}
-    </ul>
+function App() {
+  const [loading,setLoading] = useState(true);
+  const [movies,setMovies] = useState([])
+  useEffect(() => {
+    fetch(
+      `https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year`
+    )
+    .then((response) => response.json())
+    .then(json => setMovies(json.data.movies));
+  },[])
+  // 로딩이 되었다면 보여주고 로딩되지 않았다면 null
+  return <div>
+    {loading ? <h1>Loading...</h1> : null}
   </div>
-    // 콘솔로그 해보기 index
-  );
 }
+
+export default App;
